@@ -64,7 +64,7 @@ describe('CSV Read component', async () => {
       .to.equal(2.71828); // Number
   });
 
-  it.only('emitBatch: true, header: true, dynamicTyping: true', async () => {
+  it('emitBatch: true, header: true, dynamicTyping: true', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',
       header: true,

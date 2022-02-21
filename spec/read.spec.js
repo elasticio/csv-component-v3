@@ -27,7 +27,7 @@ describe('CSV Read component', async () => {
       delimiter: '',
     };
     cfg = {
-      emitAll: true,
+      emitBehavior: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -46,7 +46,7 @@ describe('CSV Read component', async () => {
       dynamicTyping: true,
     };
     cfg = {
-      emitAll: true,
+      emitBehavior: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -64,6 +64,32 @@ describe('CSV Read component', async () => {
       .to.equal(2.71828); // Number
   });
 
+  it.only('emitBatch: true, header: true, dynamicTyping: true', async () => {
+    msg.body = {
+      url: 'http://test.env.mock/formats.csv',
+      header: true,
+      dynamicTyping: true,
+      batchSize: 1,
+    };
+    cfg = {
+      emitBehavior: 'emitBatch',
+    };
+    context.emit = sinon.spy();
+    await readCSV.process.call(context, msg, cfg);
+
+    expect(context.emit.callCount)
+      .to.equal(2); // one emit call
+
+    expect(context.emit.getCall(0).args[1].body.result.length)
+      .to.equal(1); // result is array with 2 records
+
+    expect(context.emit.getCall(0).args[1].body.result[0].Text)
+      .to.equal('Lorem ipsum dolor sit amet'); // with text
+
+    expect(context.emit.getCall(0).args[1].body.result[0].Number)
+      .to.equal(2.71828); // Number
+  });
+
   it('emitAll: false, header: false, dynamicTyping: false', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',
@@ -71,7 +97,7 @@ describe('CSV Read component', async () => {
       dynamicTyping: false,
     };
     cfg = {
-      emitAll: false,
+      emitBehavior: 'emitIndividually',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -100,7 +126,7 @@ describe('CSV Read component', async () => {
       header: true,
     };
     cfg = {
-      emitAll: true,
+      emitBehavior: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -114,7 +140,7 @@ describe('CSV Read component', async () => {
       header: 'asd',
     };
     cfg = {
-      emitAll: true,
+      emitBehavior: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -128,7 +154,7 @@ describe('CSV Read component', async () => {
       dynamicTyping: 'asd',
     };
     cfg = {
-      emitAll: true,
+      emitBehavior: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);

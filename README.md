@@ -48,7 +48,7 @@ To configure this action the following fields can be used:
 
 #### Config Fields
 
-*   `Emit Behavior` - this selector configures output behavior of the component. If the option is `Fetch All` - the component emits an array of messages, otherwise (`Emit Individually`) - the component emits a message per row.
+*   `Emit Behavior` - this selector configures output behavior of the component. If the option is `Fetch All` - the component emits an array of messages; `Emit Individually` - the component emits a message per row; `Emit Batch` - component will produce a series of message where each message has an array of max length equal to the `Batch Size`;
 
 #### Input Metadata
 
@@ -56,6 +56,7 @@ To configure this action the following fields can be used:
 *   `Contains headers` - if true, the first row of parsed data will be interpreted as field names, false by default.
 *   `Delimiter` - The delimiting character. Leave blank to auto-detect from a list of most common delimiters.
 *   `Convert Data types` - numeric, date and boolean data will be converted to their type instead of remaining strings, false by default.
+If `Emit Behavior` equals to `Emit Batch` - new field appears: `Batch Size` - max length of array for each message
 
 ### Create CSV From Message Stream
 

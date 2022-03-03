@@ -19,6 +19,49 @@ describe('CSV Read component', async () => {
     .times(10)
     .replyWithFile(200, `${__dirname}/../test/formats.csv`);
 
+  // Previously "Fetch All" was true and "Emit Individually" was false
+  // The next two tests check that this backwards compatability is preserved.
+  describe('Backwards compatibility check', async () => {
+    it('Fetch All', async () => {
+      msg.body = {
+        url: 'http://test.env.mock/formats.csv',
+        header: true,
+        dynamicTyping: true,
+        delimiter: '',
+      };
+      cfg = {
+        emitAll: 'true',
+      };
+      context.emit = sinon.spy();
+      await readCSV.process.call(context, msg, cfg);
+
+      expect(context.emit.callCount)
+        .to.equal(1); // one emit call
+
+      expect(context.emit.lastCall.firstArg)
+        .to.equal('data'); // with data
+    });
+
+    it('emitAll: false, header: false, dynamicTyping: false', async () => {
+      msg.body = {
+        url: 'http://test.env.mock/formats.csv',
+        header: false,
+        dynamicTyping: false,
+      };
+      cfg = {
+        emitAll: 'false',
+      };
+      context.emit = sinon.spy();
+      await readCSV.process.call(context, msg, cfg);
+
+      expect(context.emit.callCount)
+        .to.equal(3); // 3 emit calls
+
+      expect(context.emit.getCall(1).args[1].body.column0)
+        .to.equal('2.71828'); // result is number as string
+    });
+  });
+
   it('One file', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',
@@ -27,7 +70,7 @@ describe('CSV Read component', async () => {
       delimiter: '',
     };
     cfg = {
-      emitBehavior: 'fetchAll',
+      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -39,14 +82,14 @@ describe('CSV Read component', async () => {
       .to.equal('data'); // with data
   });
 
-  it('emitAll: true, header: true, dynamicTyping: true', async () => {
+  it('emitAll: fetchAll, header: true, dynamicTyping: true', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
     };
     cfg = {
-      emitBehavior: 'fetchAll',
+      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -72,7 +115,7 @@ describe('CSV Read component', async () => {
       batchSize: 1,
     };
     cfg = {
-      emitBehavior: 'emitBatch',
+      emitAll: 'emitBatch',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -90,14 +133,14 @@ describe('CSV Read component', async () => {
       .to.equal(2.71828); // Number
   });
 
-  it('emitAll: false, header: false, dynamicTyping: false', async () => {
+  it('emitAll: emitIndividually, header: false, dynamicTyping: false', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',
       header: false,
       dynamicTyping: false,
     };
     cfg = {
-      emitBehavior: 'emitIndividually',
+      emitAll: 'emitIndividually',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -126,7 +169,7 @@ describe('CSV Read component', async () => {
       header: true,
     };
     cfg = {
-      emitBehavior: 'fetchAll',
+      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -140,7 +183,7 @@ describe('CSV Read component', async () => {
       header: 'asd',
     };
     cfg = {
-      emitBehavior: 'fetchAll',
+      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -154,7 +197,7 @@ describe('CSV Read component', async () => {
       dynamicTyping: 'asd',
     };
     cfg = {
-      emitBehavior: 'fetchAll',
+      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);

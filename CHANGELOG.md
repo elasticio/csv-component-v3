@@ -1,4 +1,4 @@
-## 3.1.0 (February 25, 2022)
+## 3.1.0 (March 3, 2022)
 * Added `Emit Batch` behavior for `Read CSV attachment` action
 
 ## 3.0.0 (July 9, 2021)

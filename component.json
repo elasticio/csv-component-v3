@@ -13,7 +13,7 @@
         "link": "/components/csv/actions#read-csv-attachment"
       },
       "fields": {
-        "emitBehavior": {
+        "emitAll": {
           "label": "Emit Behavior",
           "required": true,
           "viewClass": "SelectView",

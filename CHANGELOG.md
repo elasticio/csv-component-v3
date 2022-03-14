@@ -1,3 +1,6 @@
+## 3.1.1 (March 25, 2022)
+* Fixed input metadata for behavior `Emit Batch`
+
 ## 3.1.0 (March 3, 2022)
 * Added `Emit Batch` behavior for `Read CSV attachment` action
 

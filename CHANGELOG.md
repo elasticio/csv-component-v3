@@ -1,3 +1,6 @@
+## 3.1.1 (March 15, 2022)
+* Added component pusher build script
+
 ## 3.1.0 (March 3, 2022)
 * Added `Emit Batch` behavior for `Read CSV attachment` action
 

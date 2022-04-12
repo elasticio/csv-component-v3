@@ -1,5 +1,7 @@
 ## 3.1.2 (April 13, 2022)
-* Update "@elastic.io/component-commons-library" to read and upload attachments through `Maester`
+* Update `component-commons-library` to read and upload attachments through `Maester`
+* Update `elasticio-sailor-nodejs` to v2.6.27
+* Fix dependencies
 
 ## 3.1.1 (March 15, 2022)
 * Added component pusher build script

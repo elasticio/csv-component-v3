@@ -1,3 +1,6 @@
+## 3.1.2 (April 13, 2022)
+* Update "@elastic.io/component-commons-library" to read and upload attachments through `Maester`
+
 ## 3.1.1 (March 15, 2022)
 * Added component pusher build script
 

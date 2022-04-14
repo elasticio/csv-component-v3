@@ -25,7 +25,10 @@ describe('CSV Write component', async () => {
 
   sinon.stub(AttachmentProcessor.prototype, 'uploadAttachment').returns({
     config: {
-      url: 'someUrl',
+      url: '/someUrl/',
+    },
+    data: {
+      objectId: 'id',
     },
   });
 
@@ -179,7 +182,7 @@ describe('CSV Write component', async () => {
     expect(context.emit.args[0][1].body.size)
       .to.equal(49);
     expect(context.emit.args[0][1].body.attachmentUrl)
-      .to.equal('someUrl');
+      .to.equal('/someUrl/id?storage_type=maester');
     expect(context.emit.args[0][1].body.contentType)
       .to.equal('text/csv');
     expect(context.emit.args[0][1].body.type)

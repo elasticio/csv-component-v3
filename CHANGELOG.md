@@ -1,4 +1,4 @@
-## 3.1.2 (April 13, 2022)
+## 3.1.2 (April 14, 2022)
 * Update `component-commons-library` to read and upload attachments through `Maester`
 * Update `elasticio-sailor-nodejs` to v2.6.27
 * Fix dependencies

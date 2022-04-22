@@ -1,3 +1,6 @@
+## 3.1.3 (April 22, 2022)
+* Fix a bug when emit strategy 'Emit Batch' did not process correctly
+
 ## 3.1.2 (April 14, 2022)
 * Update `component-commons-library` to read and upload attachments through `Maester`
 * Update `elasticio-sailor-nodejs` to v2.6.27

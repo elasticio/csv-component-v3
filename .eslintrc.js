@@ -5,5 +5,6 @@ module.exports = {
   },
   rules: {
     'import/extensions': 'off',
+    "no-use-before-define": 0,
   },
 };

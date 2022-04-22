@@ -214,6 +214,42 @@ describe('CSV Read component', async () => {
       .to.equal(2.71828); // Number
   });
 
+  it('emitBatch: true, batchSize is negative', async () => {
+    msg.body = {
+      url: 'http://test.env.mock/formats.csv',
+      header: true,
+      dynamicTyping: true,
+      batchSize: -5,
+    };
+    cfg = {
+      emitAll: 'emitBatch',
+    };
+    context.emit = sinon.spy();
+    try {
+      await readCSV.process.call(context, msg, cfg);
+    } catch (err) {
+      expect(err.message).to.be.equal('\'batchSize\' must be a positive integer!');
+    }
+  });
+
+  it('emitBatch: true, batchSize is string', async () => {
+    msg.body = {
+      url: 'http://test.env.mock/formats.csv',
+      header: true,
+      dynamicTyping: true,
+      batchSize: 'asd',
+    };
+    cfg = {
+      emitAll: 'emitBatch',
+    };
+    context.emit = sinon.spy();
+    try {
+      await readCSV.process.call(context, msg, cfg);
+    } catch (err) {
+      expect(err.message).to.be.equal('\'batchSize\' must be a positive integer!');
+    }
+  });
+
   it('emitAll: emitIndividually, header: false, dynamicTyping: false', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',

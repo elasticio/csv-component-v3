@@ -62,6 +62,87 @@ describe('CSV Read component', async () => {
     });
   });
 
+  describe('emitAll: emitBatch', async () => {
+    it('should contain batchSize field', async () => {
+      cfg = {
+        emitAll: 'emitBatch',
+      };
+      const expectedMetadata = {
+        in: {
+          type: 'object',
+          properties: {
+            url: {
+              type: 'string',
+              required: true,
+              title: 'URL',
+            },
+            header: {
+              type: 'boolean',
+              required: false,
+              title: 'Contains headers',
+            },
+            delimiter: {
+              type: 'string',
+              required: false,
+              title: 'Delimiter',
+            },
+            dynamicTyping: {
+              type: 'boolean',
+              required: false,
+              title: 'Convert Data types',
+            },
+            batchSize: {
+              title: 'Batch Size',
+              type: 'number',
+              required: true,
+            },
+          },
+        },
+        out: {},
+      };
+      const metadata = await readCSV.getMetaModel(cfg);
+      expect(metadata).to.deep.equal(expectedMetadata);
+    });
+  });
+
+  describe('emitAll: fetchAll', async () => {
+    it('should not contain batchSize field', async () => {
+      cfg = {
+        emitAll: 'fetchAll',
+      };
+      const expectedMetadata = {
+        in: {
+          type: 'object',
+          properties: {
+            url: {
+              type: 'string',
+              required: true,
+              title: 'URL',
+            },
+            header: {
+              type: 'boolean',
+              required: false,
+              title: 'Contains headers',
+            },
+            delimiter: {
+              type: 'string',
+              required: false,
+              title: 'Delimiter',
+            },
+            dynamicTyping: {
+              type: 'boolean',
+              required: false,
+              title: 'Convert Data types',
+            },
+          },
+        },
+        out: {},
+      };
+      const metadata = await readCSV.getMetaModel(cfg);
+      expect(metadata).to.deep.equal(expectedMetadata);
+    });
+  });
+
   it('One file', async () => {
     msg.body = {
       url: 'http://test.env.mock/formats.csv',

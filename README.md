@@ -58,6 +58,14 @@ To configure this action the following fields can be used:
 *   `Convert Data types` - numeric, date and boolean data will be converted to their type instead of remaining strings, false by default.
 If `Emit Behavior` equals to `Emit Batch` - new field appears: `Batch Size` - max length of array for each message
 
+#### Output Metadata
+- For `Fetch page` and `Emit Batch`: An object with key ***result*** that has an array as its value
+- For `Emit Individually`:  Each object fill the entire message
+
+#### Limitations
+If you use `Fetch All` then component needs to store whole file and object in memory that cause big memory usage
+In `Emit Batch` use wisely `Batch Size`, bigger number cause bigger memory usage
+
 ### Create CSV From Message Stream
 
 This action will combine multiple incoming events into a CSV file until there is a gap

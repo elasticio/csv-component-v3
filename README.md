@@ -63,8 +63,9 @@ If `Emit Behavior` equals to `Emit Batch` - new field appears: `Batch Size` - ma
 - For `Emit Individually`:  Each object fill the entire message
 
 #### Limitations
-If you use `Fetch All` then component needs to store whole file and object in memory that cause big memory usage
-In `Emit Batch` use wisely `Batch Size`, bigger number cause bigger memory usage
+* If you use `Fetch All` then component needs to store whole file and object in memory that cause big memory usage
+* In `Emit Batch` use wisely `Batch Size`, bigger number cause bigger memory usage
+* Possible exception: `[ERR_STREAM_PREMATURE_CLOSE]` could be thrown when flow stopped before finish emiting all data in file, as stream stopped
 
 ### Create CSV From Message Stream
 

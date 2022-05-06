@@ -1,3 +1,6 @@
+## 3.1.4 (May 06, 2022)
+* Fix memory leak on `Emit Batch` behavior for `Read CSV attachment` action
+
 ## 3.1.3 (April 22, 2022)
 * Fix a bug when emit strategy 'Emit Batch' did not process correctly
 

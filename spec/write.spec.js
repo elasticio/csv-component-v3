@@ -23,14 +23,7 @@ describe('CSV Write component', async () => {
     a: '🙈', b: '🙉', c: '🙊', d: '😂',
   };
 
-  sinon.stub(AttachmentProcessor.prototype, 'uploadAttachment').returns({
-    config: {
-      url: '/someUrl/',
-    },
-    data: {
-      objectId: 'id',
-    },
-  });
+  sinon.stub(AttachmentProcessor.prototype, 'uploadAttachment').returns('id');
 
   it('Input is one array of 2 objects', async () => {
     msg.body = {
@@ -182,7 +175,7 @@ describe('CSV Write component', async () => {
     expect(context.emit.args[0][1].body.size)
       .to.equal(49);
     expect(context.emit.args[0][1].body.attachmentUrl)
-      .to.equal('/someUrl/id?storage_type=maester');
+      .to.equal('/objects/id?storage_type=maester');
     expect(context.emit.args[0][1].body.contentType)
       .to.equal('text/csv');
     expect(context.emit.args[0][1].body.type)

@@ -1,3 +1,9 @@
+## 3.1.5 (August 26, 2022)
+
+* Update Sailor version to 2.6.29
+* Get rid of vulnerabilities in dependencies
+* Update component-commons-library version to 3.0.2
+
 ## 3.1.4 (May 06, 2022)
 * Fix memory leak on `Emit Batch` behavior for `Read CSV attachment` action
 

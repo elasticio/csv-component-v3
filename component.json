@@ -2,7 +2,7 @@
   "title": "CSV",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",

@@ -1,3 +1,11 @@
+## 3.2.0 (April 27, 2023)
+* Added new config fields to `Read CSV attachment` action:
+  * `Skip empty lines`
+  * `Comment char`
+* Added new config fields to `Create CSV From Message Stream` and `Create CSV From JSON Array` actions:
+  * `New line delimiter`
+  * `Escape formulae` 
+
 ## 3.1.6 (December 16, 2022)
 
 * Update Sailor version to 2.7.1

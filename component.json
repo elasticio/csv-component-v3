@@ -2,7 +2,7 @@
   "title": "CSV",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.1.6",
+  "version": "3.2.0-dev.5",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",
@@ -15,6 +15,7 @@
         "emitAll": {
           "label": "Emit Behavior",
           "required": true,
+          "order": 80,
           "viewClass": "SelectView",
           "model": {
             "fetchAll": "Fetch All",
@@ -22,6 +23,24 @@
             "emitBatch": "Emit Batch"
           },
           "prompt": "Select Emit Behavior"
+        },
+        "skipEmptyLines": {
+          "label": "Skip empty lines",
+          "order": 70,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "by default, empty lines are parsed if checked they will be skipped"
+          }
+        },
+        "comments": {
+          "label": "Comment char",
+          "order": 60,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "if specified, skips lines starting with this string"
+          }
         }
       },
       "dynamicMetadata": true
@@ -37,20 +56,42 @@
         "uploadToAttachment": {
           "label": "Upload CSV as file to attachments",
           "viewClass": "CheckBoxView",
+          "required": false,
+          "order": 80,
           "description": "If checked store the generated CSV data as an attachment",
           "prompt": "Include headers? Default Yes."
         },
         "separator": {
           "viewClass": "TextFieldView",
           "required": false,
+          "order": 70,
           "label": "Separator",
           "note": "A single char used to delimit the CSV file. Default to ','"
         },
         "order": {
           "viewClass": "TextFieldView",
           "required": false,
+          "order": 60,
           "label": "Column Order",
           "note": "A string delimited with the separator (use same as above) indicating which columns & in what order the columns should appear in the resulting file. If omitted, the column order in the resulting file will not be deterministic."
+        },
+        "newline": {
+          "label": "New line delimiter",
+          "order": 50,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "The character used to determine newline sequence. defaults to <b style='background-color:LightGray;'>\\r\\n</b>"
+          }
+        },
+        "escapeFormulae": {
+          "label": "Escape formulae",
+          "order": 40,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "If selected, field values that begin with <b style='background-color:LightGray;'>=</b>, <b style='background-color:LightGray;'>+</b>, <b style='background-color:LightGray;'>-</b>, <b style='background-color:LightGray;'>@</b>, <b style='background-color:LightGray;'>\\t</b>, or <b style='background-color:LightGray;'>\\r</b>, will be prepended with a <b style='background-color:LightGray;'>'</b> to defend against injection attacks, because Excel and LibreOffice will automatically parse such cells as formula"
+          }
         }
       },
       "dynamicMetadata": true
@@ -66,20 +107,42 @@
         "uploadToAttachment": {
           "label": "Upload CSV as file to attachments",
           "viewClass": "CheckBoxView",
+          "required": false,
+          "order": 80,
           "description": "If checked store the generated CSV data as an attachment",
           "prompt": "Include headers? Default Yes."
         },
         "separator": {
           "viewClass": "TextFieldView",
           "required": false,
+          "order": 70,
           "label": "Separator",
           "note": "A single char used to delimit the CSV file. Default to ','"
         },
         "order": {
           "viewClass": "TextFieldView",
           "required": false,
+          "order": 60,
           "label": "Column Order",
           "note": "A string delimited with the separator (use same as above) indicating which columns & in what order the columns should appear in the resulting file. If omitted, the column order in the resulting file will not be deterministic."
+        },
+        "newline": {
+          "label": "New line delimiter",
+          "order": 50,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "The character used to determine newline sequence. defaults to <b style='background-color:LightGray;'>\\r\\n</b>"
+          }
+        },
+        "escapeFormulae": {
+          "label": "Escape formulae",
+          "order": 40,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "If selected, field values that begin with <b style='background-color:LightGray;'>=</b>, <b style='background-color:LightGray;'>+</b>, <b style='background-color:LightGray;'>-</b>, <b style='background-color:LightGray;'>@</b>, <b style='background-color:LightGray;'>\\t</b>, or <b style='background-color:LightGray;'>\\r</b>, will be prepended with a <b style='background-color:LightGray;'>'</b> to defend against injection attacks, because Excel and LibreOffice will automatically parse such cells as formula"
+          }
         }
       },
       "dynamicMetadata": true

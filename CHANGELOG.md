@@ -1,4 +1,4 @@
-## 3.2.0 (April 27, 2023)
+## 3.2.0 (May 02, 2023)
 * Added new config fields to `Read CSV attachment` action:
   * `Skip empty lines`
   * `Comment char`

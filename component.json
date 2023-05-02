@@ -2,7 +2,7 @@
   "title": "CSV",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.2.0-dev.5",
+  "version": "3.2.0",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",
@@ -30,7 +30,7 @@
           "required": false,
           "viewClass": "CheckBoxView",
           "help": {
-            "description": "by default, empty lines are parsed if checked they will be skipped"
+            "description": "By default, empty lines are parsed if checked they will be skipped"
           }
         },
         "comments": {
@@ -39,7 +39,7 @@
           "required": false,
           "viewClass": "TextFieldView",
           "help": {
-            "description": "if specified, skips lines starting with this string"
+            "description": "If specified, skips lines starting with this string"
           }
         }
       },

@@ -12,7 +12,7 @@
   * [Create CSV From Message Stream](#create-CSV-from-message-stream)
   * [Create CSV From JSON Array](#create-CSV-from-JSON-array)
 * [Triggers](#triggers)
-  * [Read CSV](#read-CSV)
+  * [Read CSV file from URL](#read-csv-file-from-url)
 * [Limitations](#limitations)
 
 ## Description
@@ -187,7 +187,7 @@ This action will convert an incoming array into a CSV file
 
 ## Triggers
 
-### Read CSV
+### Read CSV file from URL
 
 This trigger read the CSV file from the URL provided in the configuration fields and output the result as a JSON object.
 The trigger works pretty much the same as the [Read CSV attachment action](#read-CSV-attachment). The difference is that all the settings are to be provided in the configuration fields, not in the body message. As the triggers do not have input messages. 

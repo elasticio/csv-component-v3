@@ -2,7 +2,7 @@
   "title": "CSV",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.2.0",
+  "version": "3.3.0-dev.1",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",
@@ -146,6 +146,81 @@
         }
       },
       "dynamicMetadata": true
+    }
+  },
+  "triggers": {
+    "read_trigger": {
+      "main": "./lib/triggers/read.js",
+      "title": "Read CSV file from URL",
+      "help": {
+        "description": "This action will read the CSV attachment from the specified URL and output a JSON object.",
+        "link": "/components/csv/trigger#read-csv-file"
+      },
+      "fields": {
+        "url": {
+          "label": "URL of the CSV file",
+          "order": 90,
+          "required": true,
+          "viewClass": "TextFieldView"
+        },
+        "header": {
+          "label": "Contains headers",
+          "order": 80,
+          "required": false,
+          "viewClass": "CheckBoxView"
+        },
+        "delimiter": {
+          "label": "Delimiter",
+          "order": 70,
+          "required": false,
+          "viewClass": "TextFieldView"
+        },
+        "dynamicTyping": {
+          "label": "Convert Data types",
+          "order": 60,
+          "required": false,
+          "viewClass": "CheckBoxView"
+        },
+        "emitBehavior": {
+          "label": "Emit Behavior",
+          "required": true,
+          "order": 50,
+          "viewClass": "SelectView",
+          "model": {
+            "fetchAll": "Fetch All",
+            "emitIndividually": "Emit Individually",
+            "emitBatch": "Emit Batch"
+          },
+          "prompt": "Select Emit Behavior"
+        },
+        "batchSize": {
+          "label": "Batch Size",
+          "required": false,
+          "order": 45,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "Enter batch size if the 'Emit Behavior' field is set to 'Emit Batch'"
+          }
+        },
+        "skipEmptyLines": {
+          "label": "Skip empty lines",
+          "order": 40,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "By default, empty lines are parsed if checked they will be skipped"
+          }
+        },
+        "comments": {
+          "label": "Comment char",
+          "order": 30,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "If specified, skips lines starting with this string"
+          }
+        }
+      }
     }
   }
 }

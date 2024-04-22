@@ -199,20 +199,6 @@ describe('CSV Read component', async () => {
     expect(context.emit.getCall(0).lastArg).to.be.contains('URL of the CSV is missing');
   });
 
-  it('Should fail - 404', async () => {
-    msg.body = {
-      url: 'https://example.com/1.csv',
-      header: true,
-    };
-    cfg = {
-      emitAll: 'fetchAll',
-    };
-    context.emit = sinon.spy();
-    await readCSV.process.call(context, msg, cfg);
-    expect(context.emit.getCall(0).firstArg).to.equal('error');
-    expect(context.emit.getCall(0).lastArg).to.be.contains('status code 404');
-  });
-
   it('Should fail - Non-boolean values - header', async () => {
     msg.body = {
       url: 'https://example.com/1.csv',

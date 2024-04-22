@@ -105,7 +105,7 @@ describe('CSV Read component', async () => {
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
-      batchSize: 1,
+      batchSize: '1',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -129,7 +129,7 @@ describe('CSV Read component', async () => {
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
-      batchSize: -5,
+      batchSize: '-5',
     };
     context.emit = sinon.spy();
     try {

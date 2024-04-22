@@ -11,6 +11,8 @@
   * [Read CSV attachment](#read-CSV-attachment)
   * [Create CSV From Message Stream](#create-CSV-from-message-stream)
   * [Create CSV From JSON Array](#create-CSV-from-JSON-array)
+* [Triggers](#triggers)
+  * [Read CSV](#read-CSV)
 * [Limitations](#limitations)
 
 ## Description
@@ -182,6 +184,51 @@ This action will convert an incoming array into a CSV file
   * `attachmentCreationTime` - When the attachment was generated
   * `attachmentExpiryTime` - When the attachment is set to expire
   * `contentType` - Always set to `text/csv`
+
+## Triggers
+
+### Read CSV
+
+This trigger read the CSV file from the URL provided in the configuration fields and output the result as a JSON object.
+The trigger works pretty much the same as the [Read CSV attachment action](#read-CSV-attachment). The difference is that all the settings are to be provided in the configuration fields, not in the body message. As the triggers do not have input messages. 
+
+#### Config Fields
+
+* `Emit Behavior` (dropdown, required) - this selector configures output behavior of the component.
+  * `Fetch All` - the component emits an array of messages;
+  * `Emit Individually` - the component emits a message per row;
+  * `Emit Batch` - component will produce a series of message where each message has an array of max length equal to the `Batch Size`;
+* `Skip empty lines` (checkbox, optional) - by default, empty lines are parsed if checked they will be skipped
+* `Comment char` (string, optional) - if specified, skips lines starting with this string
+
+#### Input Metadata
+
+*   `URL` (string, required) - URL of the CSV file to parse
+*   `Contains headers` (boolean, optional) - if true, the first row of parsed data will be interpreted as field names, false by default.
+*   `Delimiter` (string, optional) - The delimiting character. Leave blank to auto-detect from a list of most common delimiters or provide your own
+     <details><summary>Example</summary>
+     if you use "$" as Delimiter, this CSV:
+
+    ```
+    a$b$c$d
+    ```
+
+    can be parsed into this JSON
+
+    ``` json
+    {
+     "column0": "a",
+     "column1": "b",
+     "column2": "c",
+     "column3": "d"
+    }
+    ```
+    </details>
+*   `Convert Data types` (boolean, optional) - numeric data and boolean data will be converted to their type instead of remaining strings, false by default.
+
+#### Output Metadata
+- For `Fetch page` and `Emit Batch`: An object with key ***result*** that has an array as its value
+- For `Emit Individually`:  Each object fill the entire message
 
 ## Limitations
 

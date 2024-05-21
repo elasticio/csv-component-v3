@@ -204,7 +204,7 @@ The trigger works pretty much the same as the [Read CSV attachment action](#read
 #### Input Metadata
 
 *   `URL` (string, required) - URL of the CSV file to parse
-*   `Contains headers` (boolean, optional) - if true, the first row of parsed data will be interpreted as field names, false by default.
+*   `Contains headers` (boolean, optional) - If true, the first row of parsed data will be interpreted as field names, false by default.
 *   `Delimiter` (string, optional) - The delimiting character. Leave blank to auto-detect from a list of most common delimiters or provide your own
      <details><summary>Example</summary>
      if you use "$" as Delimiter, this CSV:
@@ -224,7 +224,7 @@ The trigger works pretty much the same as the [Read CSV attachment action](#read
     }
     ```
     </details>
-*   `Convert Data types` (boolean, optional) - numeric data and boolean data will be converted to their type instead of remaining strings, false by default.
+*   `Convert Data types` (boolean, optional) - Numeric data and boolean data will be converted to their type instead of remaining strings, false by default.
 
 #### Output Metadata
 - For `Fetch page` and `Emit Batch`: An object with key ***result*** that has an array as its value

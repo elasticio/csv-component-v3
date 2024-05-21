@@ -2,14 +2,14 @@
   "title": "CSV v3",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.3.0-dev.3",
+  "version": "3.3.0-dev.4",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",
       "title": "Read CSV attachment",
       "help": {
         "description": "This action will read the CSV attachment of the incoming message or from the specified URL and output a JSON object.",
-        "link": "/components/csv/actions#read-csv-attachment"
+        "link": "/components/csv/actions.html#read-csv-attachment"
       },
       "fields": {
         "emitAll": {
@@ -50,7 +50,7 @@
       "title": "Create CSV From Message Stream",
       "help": {
         "description": "Multiple incoming events can be combined into one CSV file with the write CSV action.",
-        "link": "/components/csv/actions#write-csv-attachment"
+        "link": "/components/csv/actions.html#write-csv-attachment"
       },
       "fields": {
         "uploadToAttachment": {
@@ -101,7 +101,7 @@
       "title": "Create CSV From JSON Array",
       "help": {
         "description": "Incoming array can be converted into one CSV file",
-        "link": "/components/csv/actions#write-csv-attachment"
+        "link": "/components/csv/actions.html#write-csv-attachment"
       },
       "fields": {
         "uploadToAttachment": {
@@ -155,7 +155,7 @@
       "title": "Read CSV file from URL",
       "help": {
         "description": "This action will read the CSV attachment from the specified URL and output a JSON object.",
-        "link": "/components/csv/trigger#read-csv-file"
+        "link": "/components/csv/triggers.html#read-csv-file"
       },
       "fields": {
         "url": {
@@ -168,19 +168,28 @@
           "label": "Contains headers",
           "order": 80,
           "required": false,
-          "viewClass": "CheckBoxView"
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "If true, the first row of parsed data will be interpreted as field names, false by default"
+          }
         },
         "delimiter": {
           "label": "Delimiter",
           "order": 70,
           "required": false,
-          "viewClass": "TextFieldView"
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "The delimiting character. Leave blank to auto-detect from a list of most common delimiters or provide your own"
+          }
         },
         "dynamicTyping": {
           "label": "Convert Data types",
           "order": 60,
           "required": false,
-          "viewClass": "CheckBoxView"
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "Numeric data and boolean data will be converted to their type instead of remaining strings, false by default"
+          }
         },
         "emitBehavior": {
           "label": "Emit Behavior",

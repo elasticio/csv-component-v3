@@ -1,5 +1,5 @@
 {
-  "title": "CSV",
+  "title": "CSV v3",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
   "version": "3.3.0-dev.3",

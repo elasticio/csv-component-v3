@@ -8,7 +8,7 @@
     "integration-test": "mocha spec-integration"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "repository": {
     "type": "git",
@@ -24,11 +24,11 @@
   "bugs": {
     "url": "https://github.com/elasticio/csv-component/issues"
   },
-  "homepage": "https://github.com/elasticio/csv-component#readme",
+  "homepage": "https://github.com/elasticio/csv-component-v3#readme",
   "dependencies": {
-    "@elastic.io/component-commons-library": "3.1.5",
+    "@elastic.io/component-commons-library": "3.2.0",
     "elasticio-node": "0.0.9",
-    "elasticio-sailor-nodejs": "2.7.1",
+    "elasticio-sailor-nodejs": "2.7.2",
     "papaparse": "5.4.1"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "eslint-plugin-import": "2.23.4",
     "eslint-plugin-mocha": "9.0.0",
     "mocha": "10.0.0",
-    "nock": "13.0.5",
+    "nock": "13.5.4",
     "nyc": "15.1.0",
     "sinon": "9.2.2"
   }

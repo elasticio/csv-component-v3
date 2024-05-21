@@ -1,15 +1,15 @@
 {
-  "title": "CSV",
+  "title": "CSV v3",
   "description": "A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form",
   "docsUrl": "https://github.com/elasticio/csv-component",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "actions": {
     "read_action": {
       "main": "./lib/actions/read.js",
       "title": "Read CSV attachment",
       "help": {
         "description": "This action will read the CSV attachment of the incoming message or from the specified URL and output a JSON object.",
-        "link": "/components/csv/actions#read-csv-attachment"
+        "link": "/components/csv/actions.html#read-csv-attachment"
       },
       "fields": {
         "emitAll": {
@@ -50,7 +50,7 @@
       "title": "Create CSV From Message Stream",
       "help": {
         "description": "Multiple incoming events can be combined into one CSV file with the write CSV action.",
-        "link": "/components/csv/actions#write-csv-attachment"
+        "link": "/components/csv/actions.html#write-csv-attachment"
       },
       "fields": {
         "uploadToAttachment": {
@@ -101,7 +101,7 @@
       "title": "Create CSV From JSON Array",
       "help": {
         "description": "Incoming array can be converted into one CSV file",
-        "link": "/components/csv/actions#write-csv-attachment"
+        "link": "/components/csv/actions.html#write-csv-attachment"
       },
       "fields": {
         "uploadToAttachment": {
@@ -146,6 +146,91 @@
         }
       },
       "dynamicMetadata": true
+    }
+  },
+  "triggers": {
+    "read_trigger": {
+      "type": "polling",
+      "main": "./lib/triggers/read.js",
+      "title": "Read CSV file from URL",
+      "help": {
+        "description": "This action will read the CSV attachment from the specified URL and output a JSON object.",
+        "link": "/components/csv/triggers.html#read-csv-file"
+      },
+      "fields": {
+        "url": {
+          "label": "URL of the CSV file",
+          "order": 90,
+          "required": true,
+          "viewClass": "TextFieldView"
+        },
+        "header": {
+          "label": "Contains headers",
+          "order": 80,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "If true, the first row of parsed data will be interpreted as field names, false by default"
+          }
+        },
+        "delimiter": {
+          "label": "Delimiter",
+          "order": 70,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "The delimiting character. Leave blank to auto-detect from a list of most common delimiters or provide your own"
+          }
+        },
+        "dynamicTyping": {
+          "label": "Convert Data types",
+          "order": 60,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "Numeric data and boolean data will be converted to their type instead of remaining strings, false by default"
+          }
+        },
+        "emitBehavior": {
+          "label": "Emit Behavior",
+          "required": true,
+          "order": 50,
+          "viewClass": "SelectView",
+          "model": {
+            "fetchAll": "Fetch All",
+            "emitIndividually": "Emit Individually",
+            "emitBatch": "Emit Batch"
+          },
+          "prompt": "Select Emit Behavior"
+        },
+        "batchSize": {
+          "label": "Batch Size",
+          "required": false,
+          "order": 45,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "Enter batch size if the 'Emit Behavior' field is set to 'Emit Batch'"
+          }
+        },
+        "skipEmptyLines": {
+          "label": "Skip empty lines",
+          "order": 40,
+          "required": false,
+          "viewClass": "CheckBoxView",
+          "help": {
+            "description": "By default, empty lines are parsed if checked they will be skipped"
+          }
+        },
+        "comments": {
+          "label": "Comment char",
+          "order": 30,
+          "required": false,
+          "viewClass": "TextFieldView",
+          "help": {
+            "description": "If specified, skips lines starting with this string"
+          }
+        }
+      }
     }
   }
 }

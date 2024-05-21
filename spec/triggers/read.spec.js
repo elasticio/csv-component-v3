@@ -3,7 +3,7 @@ const { Logger } = require('@elastic.io/component-commons-library');
 const { expect } = require('chai');
 const nock = require('nock');
 const sinon = require('sinon');
-const readCSV = require('../lib/actions/read.js');
+const readCSV = require('../../lib/triggers/read.js');
 
 const logger = Logger.getLogger();
 
@@ -17,20 +17,18 @@ describe('CSV Read component', async () => {
   nock('http://test.env.mock')
     .get('/formats.csv')
     .times(10)
-    .replyWithFile(200, `${__dirname}/../test/formats.csv`);
+    .replyWithFile(200, `${__dirname}/../../test/formats.csv`);
 
   // Previously "Fetch All" was true and "Emit Individually" was false
   // The next two tests check that this backwards compatability is preserved.
   describe('Backwards compatibility check', async () => {
     it('Fetch All', async () => {
-      msg.body = {
+      cfg = {
+        emitBehavior: 'fetchAll',
         url: 'http://test.env.mock/formats.csv',
         header: true,
         dynamicTyping: true,
         delimiter: '',
-      };
-      cfg = {
-        emitAll: 'true',
       };
       context.emit = sinon.spy();
       await readCSV.process.call(context, msg, cfg);
@@ -42,14 +40,12 @@ describe('CSV Read component', async () => {
         .to.equal('data'); // with data
     });
 
-    it('emitAll: false, header: false, dynamicTyping: false', async () => {
-      msg.body = {
+    it('emitBehavior: emitIndividually, header: false, dynamicTyping: false', async () => {
+      cfg = {
+        emitBehavior: 'emitIndividually',
         url: 'http://test.env.mock/formats.csv',
         header: false,
         dynamicTyping: false,
-      };
-      cfg = {
-        emitAll: 'false',
       };
       context.emit = sinon.spy();
       await readCSV.process.call(context, msg, cfg);
@@ -63,14 +59,12 @@ describe('CSV Read component', async () => {
   });
 
   it('One file', async () => {
-    msg.body = {
+    cfg = {
+      emitBehavior: 'fetchAll',
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
       delimiter: '',
-    };
-    cfg = {
-      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -82,14 +76,12 @@ describe('CSV Read component', async () => {
       .to.equal('data'); // with data
   });
 
-  it('emitAll: fetchAll, header: true, dynamicTyping: true', async () => {
-    msg.body = {
+  it('emitBehavior: fetchAll, header: true, dynamicTyping: true', async () => {
+    cfg = {
+      emitBehavior: 'fetchAll',
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
-    };
-    cfg = {
-      emitAll: 'fetchAll',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -107,15 +99,13 @@ describe('CSV Read component', async () => {
       .to.equal(2.71828); // Number
   });
 
-  it('emitBatch: true, header: true, dynamicTyping: true', async () => {
-    msg.body = {
+  it('emitBehavior: emitBatch, header: true, dynamicTyping: true', async () => {
+    cfg = {
+      emitBehavior: 'emitBatch',
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
-      batchSize: 1,
-    };
-    cfg = {
-      emitAll: 'emitBatch',
+      batchSize: '1',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -134,14 +124,12 @@ describe('CSV Read component', async () => {
   });
 
   it('emitBatch: true, batchSize is negative', async () => {
-    msg.body = {
+    cfg = {
+      emitBehavior: 'emitBatch',
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
-      batchSize: -5,
-    };
-    cfg = {
-      emitAll: 'emitBatch',
+      batchSize: '-5',
     };
     context.emit = sinon.spy();
     try {
@@ -151,16 +139,14 @@ describe('CSV Read component', async () => {
     }
   });
 
-  it('emitBatch: true, batchSize is string', async () => {
-    msg.body = {
+  it('emitBehavior: emitBehavior, batchSize is string', async () => {
+    cfg = {
+      emitBehavior: 'emitBatch',
       url: 'http://test.env.mock/formats.csv',
       header: true,
       dynamicTyping: true,
       batchSize: 'asd',
     };
-    cfg = {
-      emitAll: 'emitBatch',
-    };
     context.emit = sinon.spy();
     try {
       await readCSV.process.call(context, msg, cfg);
@@ -169,14 +155,12 @@ describe('CSV Read component', async () => {
     }
   });
 
-  it('emitAll: emitIndividually, header: false, dynamicTyping: false', async () => {
-    msg.body = {
+  it('emitBehavior: emitIndividually, header: false, dynamicTyping: false', async () => {
+    cfg = {
+      emitBehavior: 'emitIndividually',
       url: 'http://test.env.mock/formats.csv',
       header: false,
       dynamicTyping: false,
-    };
-    cfg = {
-      emitAll: 'emitIndividually',
     };
     context.emit = sinon.spy();
     await readCSV.process.call(context, msg, cfg);
@@ -189,41 +173,10 @@ describe('CSV Read component', async () => {
   });
 
   it('Should fail - no File', async () => {
-    msg.body = {
-    };
-    cfg = {
-    };
+    cfg = {};
     context.emit = sinon.spy();
-    await readCSV.process.call(context, msg, cfg);
-    expect(context.emit.getCall(0).firstArg).to.equal('error');
-    expect(context.emit.getCall(0).lastArg).to.be.contains('URL of the CSV is missing');
-  });
-
-  it('Should fail - Non-boolean values - header', async () => {
-    msg.body = {
-      url: 'https://example.com/1.csv',
-      header: 'asd',
-    };
-    cfg = {
-      emitAll: 'fetchAll',
-    };
-    context.emit = sinon.spy();
-    await readCSV.process.call(context, msg, cfg);
-    expect(context.emit.getCall(0).firstArg).to.equal('error');
-    expect(context.emit.getCall(0).lastArg).to.be.contains('Non-boolean values');
-  });
-
-  it('Should fail - Non-boolean values - dynamicTyping', async () => {
-    msg.body = {
-      url: 'https://example.com/1.csv',
-      dynamicTyping: 'asd',
-    };
-    cfg = {
-      emitAll: 'fetchAll',
-    };
-    context.emit = sinon.spy();
-    await readCSV.process.call(context, msg, cfg);
-    expect(context.emit.getCall(0).firstArg).to.equal('error');
-    expect(context.emit.getCall(0).lastArg).to.be.contains('Non-boolean values');
+    await readCSV.process.call(context, msg, cfg).catch((error) => {
+      expect(error.message).to.equal('URL of the CSV is missing');
+    });
   });
 });

@@ -1,3 +1,6 @@
+## 3.3.0 (May 21, 2024)
+* Added new trigger - `Read CSV file from URL`
+* 
 ## 3.2.0 (May 02, 2023)
 * Added new config fields to `Read CSV attachment` action:
   * `Skip empty lines`
